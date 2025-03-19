@@ -1,3 +1,61 @@
+topo sort
+#include <stdio.h>
+#include <stdlib.h>
+void topologicalSort(int graph[20][20], int V) {
+    int in_degree[V];
+    for (int i = 0; i < V; i++) {
+        in_degree[i] = 0;
+}
+for(int i = 0; i < V; i++) {
+    for (int j = 0; j < V; j++) {
+        if (graph[i][j] == 1) {
+            in_degree[j]++;
+    }
+}
+}
+int queue[20], front = 0, rear = 0;
+    for (int i = 0; i < V; i++) {
+        if (in_degree[i] == 0) {
+            queue[rear++] = i;
+}
+}
+int topo_order[20], index = 0;
+    while (front != rear) {
+        int n = queue[front++];
+        topo_order[index++] = n;
+
+        for (int i = 0; i < V; i++) {
+            if (graph[n][i] == 1) {
+                in_degree[i]--;
+                if (in_degree[i] == 0) {
+                    queue[rear++] = i;
+}
+}
+}
+}
+   if (index == V) {
+        for (int i = 0; i < V; i++) {
+            printf("%d is the topological order ", topo_order[i]);
+    }
+}
+else {
+printf("Cycle detected\n");
+}
+}
+void main(){
+int i,j,graph[20][20],V;
+printf("Enter the number of vertices ");
+scanf("%d",&V);
+for (i=0;i<V;i++){
+    for(j=0;j<V;j++){
+        printf("enter the %d %dth elements ",i,j);
+        scanf("%d",&graph[i][j]);
+    }
+}
+topologicalSort(graph,V);
+}
+
+leet 
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -60,3 +118,5 @@ bool canFinish(int numCourses, int** prerequisites, int prerequisitesSize, int* 
     free(adjList);
     return true;
 }
+
+
